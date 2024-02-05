@@ -2,14 +2,14 @@ import { IWord } from '../interfaces'
 import WordCard from './WordCard'
 
 interface RowProps {
-  row: Readonly<IWord[]>
-  rowId: number
+  arr: Readonly<IWord[]>
+  row: number
 }
-export default function Row({ row, rowId }: RowProps) {
+export default function Row({ arr, row }: RowProps) {
   return (
     <div className="flex gap-2">
-      {row.map((word, id) => (
-        <WordCard {...word} id={id} rowId={rowId} key={rowId} />
+      {arr.map((word, cell) => (
+        <WordCard {...word} cell={cell} row={row} key={cell} />
       ))}
     </div>
   )

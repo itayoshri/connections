@@ -9,7 +9,7 @@ export default function Grid() {
   return (
     <div className="flex flex-col gap-2">
       {snap.words.map((row, id) => (
-        <Row row={row} rowId={id} key={id} />
+        <Row arr={row} row={id} key={id} />
       ))}
     </div>
   )

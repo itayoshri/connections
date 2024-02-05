@@ -4,4 +4,9 @@ export interface IWord {
   word: string
   checked: boolean
   completed: boolean
+  id: number
+}
+
+export interface IGroup {
+  cp
 }
