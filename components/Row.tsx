@@ -1,8 +1,8 @@
-import { IWord } from '../interfaces'
+import { IGridWord } from '../interfaces'
 import WordCard from './WordCard'
 
 interface RowProps {
-  arr: Readonly<IWord[]>
+  arr: Readonly<IGridWord[]>
   row: number
 }
 export default function Row({ arr, row }: RowProps) {

@@ -1,12 +1,16 @@
 type Row = 0 | 1 | 2 | 3
 
-export interface IWord {
-  word: string
-  checked: boolean
-  completed: boolean
+export interface IGridWord {
   id: number
 }
 
 export interface IGroup {
-  cp
+  correctWords: number[]
+  completed: boolean
+}
+
+export interface IWord {
+  word: string
+  group: number
+  checked: boolean
 }

@@ -1,30 +1,32 @@
 import { state } from '../pages'
-import { IWord } from '../interfaces'
+import { IGridWord } from '../interfaces'
+import { useSnapshot } from 'valtio'
+import { useMemo } from 'react'
 
 const SetChecked = (row, cell) => {
-  state.words[row][cell].checked = !state.words[row][cell].checked
+  const id = state.grid[row][cell].id
+  state.words[id].checked = !state.words[id].checked
 }
 
-interface WordCardProps extends IWord {
+interface WordCardProps extends IGridWord {
   row: number
   cell: number
 }
 
-export default function WordCard({
-  word,
-  checked,
-  completed,
-  row,
-  cell,
-}: WordCardProps) {
+export default function WordCard({ row, cell }: WordCardProps) {
+  const snap = useSnapshot(state)
+  const id = useMemo(() => {
+    return snap.grid[row][cell].id
+  }, [cell, row, snap.grid])
+
   return (
     <div
       className={`flex bg-stone-200 w-1/4 justify-center items-center h-[22.5vw] /h-24 rounded-lg text-black font-bold ${
-        checked ? 'bg-stone-600 text-white' : ''
+        snap.words[id].checked ? 'bg-stone-600 text-white' : ''
       }`}
       onClick={() => SetChecked(row, cell)}
     >
-      {word}
+      {snap.words[snap.grid[row][cell].id].word}
     </div>
   )
 }
