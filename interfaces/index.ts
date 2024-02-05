@@ -7,6 +7,7 @@ export interface IGridWord {
 export interface IGroup {
   correctWords: number[]
   completed: boolean
+  category: string
 }
 
 export interface IWord {
