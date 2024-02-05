@@ -9,7 +9,7 @@ const colors = {
   green: 'bg-lime-400',
 }
 
-export default function Group({ correctWords, completed, category }: IGroup) {
+export default function Group({ correctWords, category, color }: IGroup) {
   const words = useMemo(() => {
     var temp = ''
     for (const w of correctWords) {
@@ -21,7 +21,7 @@ export default function Group({ correctWords, completed, category }: IGroup) {
 
   return (
     <div
-      className={`flex flex-col h-[22.5vw] items-center justify-center gap-1 rounded-lg ${colors['purple']}`}
+      className={`flex flex-col h-[22.5vw] items-center justify-center gap-1 rounded-lg ${colors[color]}`}
     >
       <h1 className="text-2xl font-black">{category}</h1>
       <a>{words}</a>

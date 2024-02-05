@@ -8,6 +8,7 @@ export interface IGroup {
   correctWords: number[]
   completed: boolean
   category: string
+  color: string
 }
 
 export interface IWord {
