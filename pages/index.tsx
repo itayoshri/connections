@@ -23,7 +23,10 @@ export default function Home() {
     var arr = []
     var counter = 0
     for (const w in state.words) {
-      if (state.words[w].checked) continue
+      if (state.groups[state.words[w].group].completed) {
+        state.words[w].checked = false
+        continue
+      }
       counter++
       arr.push({ id: w })
       if (counter != 0 && counter % 4 == 0) {
@@ -63,13 +66,22 @@ export default function Home() {
   const snap = useSnapshot(state)
 
   return snap.groups.length > 0 ? (
-    <div className="bg-pink-300 h-screen w-screen">
+    <div className="bg-pink-300 flex flex-col h-screen w-screen gap-2">
       {snap.completed.map((group, key) => (
         <Group {...group} key={key} />
       ))}
       <Grid />
-
-      <Button onClick={() => Submit()}>Submit</Button>
+      <div className="flex w-full gap-2">
+        <Button onClick={() => Submit()} className="w-full" secondary>
+          Submit
+        </Button>
+        <Button onClick={() => Submit()} className="w-full" secondary>
+          Submit
+        </Button>
+        <Button onClick={() => Submit()} className="w-full">
+          Submit
+        </Button>
+      </div>
     </div>
   ) : null
 }
