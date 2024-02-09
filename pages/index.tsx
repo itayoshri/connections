@@ -14,6 +14,7 @@ export const state = proxy({
   grid: [] as IGridWord[][],
   groups: [] as IGroup[],
   words: [] as IWord[],
+  completed: [] as Partial<IGroup[]>,
 })
 
 export default function Home() {
@@ -43,11 +44,13 @@ export default function Home() {
           }
         }
         state.groups[w.group].completed = true
+        state.completed.push(group)
         resetGrid()
+        break
       }
     }
     return false
-  }, [resetGrid])
+  }, [])
 
   useEffect(() => {
     axios('/api/hello').then((res) => {
@@ -61,8 +64,11 @@ export default function Home() {
 
   return snap.groups.length > 0 ? (
     <div className="bg-pink-300 h-screen w-screen">
+      {snap.completed.map((group, key) => (
+        <Group {...group} key={key} />
+      ))}
       <Grid />
-      <Group {...state.groups[0]} />
+
       <Button onClick={() => Submit()}>Submit</Button>
     </div>
   ) : null
