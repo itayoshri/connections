@@ -4,7 +4,7 @@ import WordCard from '../components/WordCard'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Grid from '../components/Grid'
 import { proxy, snapshot, useSnapshot } from 'valtio'
-import { IGroup, IGridWord } from '../interfaces'
+import { IGroup, IGridWord, IWord } from '../interfaces'
 import Group from '../components/Group'
 import Button from '../components/Button'
 const inter = Inter({ subsets: ['latin'] })
@@ -13,7 +13,7 @@ import axios from 'axios'
 export const state = proxy({
   grid: [] as IGridWord[][],
   groups: [] as IGroup[],
-  words: [],
+  words: [] as IWord[],
 })
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
     var arr = []
     var counter = 0
     for (const w in state.words) {
-      if (state.words[w].completed) continue
+      if (state.words[w].checked) continue
       counter++
       arr.push({ id: w })
       if (counter != 0 && counter % 4 == 0) {
@@ -42,15 +42,15 @@ export default function Home() {
             return false
           }
         }
-        return true
+        state.groups[w.group].completed = true
+        resetGrid()
       }
     }
     return false
-  }, [])
+  }, [resetGrid])
 
   useEffect(() => {
     axios('/api/hello').then((res) => {
-      console.log(res.data)
       state.groups = res.data.groups
       state.words = res.data.words
       resetGrid()
@@ -60,10 +60,10 @@ export default function Home() {
   const snap = useSnapshot(state)
 
   return snap.groups.length > 0 ? (
-    <div className="bg-white h-screen w-screen">
+    <div className="bg-pink-300 h-screen w-screen">
       <Grid />
       <Group {...state.groups[0]} />
-      <Button onClick={() => console.log(Submit())}>Submit</Button>
+      <Button onClick={() => Submit()}>Submit</Button>
     </div>
   ) : null
 }
