@@ -19,8 +19,10 @@ export default function WordCard({ row, cell }: WordCardProps) {
 
   return (
     <div
-      className={`flex bg-stone-200 w-1/4 justify-center items-center h-[22.5vw] /h-24 rounded-lg text-black font-bold ${
-        snap.words[id].checked ? 'bg-stone-600 text-white' : ''
+      className={`flex  w-1/4 justify-center items-center h-[22.5vw] /h-24 rounded-lg font-bold ${
+        snap.words[id].checked
+          ? 'bg-stone-600 text-white'
+          : 'bg-stone-200 text-black'
       }`}
       onClick={() => SetChecked(row, cell)}
     >
