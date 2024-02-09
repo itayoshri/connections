@@ -15,9 +15,7 @@ interface WordCardProps extends IGridWord {
 
 export default function WordCard({ row, cell }: WordCardProps) {
   const snap = useSnapshot(state)
-  const id = useMemo(() => {
-    return snap.grid[row][cell].id
-  }, [cell, row, snap.grid])
+  const id = snap.grid[row][cell].id
 
   return (
     <div
